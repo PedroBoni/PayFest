@@ -50,8 +50,8 @@ export default function ReadQR() {
 console.log(Dimensions.get('window'))
 const styles = StyleSheet.create({
    camRead: {
-      width:Dimensions.get('window').width,
-      height:Dimensions.get('window').height
+      width:300,
+      
 
    },
   

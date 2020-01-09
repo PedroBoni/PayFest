@@ -12,23 +12,25 @@ import QRCode from 'react-native-qrcode-svg';
 
  export default function Qrcode(){
     return(
-      <QRCode
-      //QR code value
-      value={'Hello World'}
-      //size of QR Code
-      size={250}
-      //Color of the QR Code (Optional)
-      color="black"
-      //Background Color of the QR Code (Optional)
-      backgroundColor="white"
-      //Logo of in the center of QR Code (Optional
-      style={styles.qrcode}
-   />
-   
+      <View style={styles.container}>
+        <QRCode
+        //QR code value
+        value={'Hello World'}
+        //size of QR Code
+        size={250}
+        //Color of the QR Code (Optional)
+        color="black"
+        //Background Color of the QR Code (Optional)
+        backgroundColor="white"
+        //Logo of in the center of QR Code (Optional
+        />
+    </View>
     )
  }
 const styles = StyleSheet.create({
-  qrcode:{
-     marginVertical:10
+  container:{
+     marginBottom:20,
+     borderWidth:0.5,
+     borderColor:'#000000'
   }
 });

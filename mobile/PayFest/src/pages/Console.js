@@ -2,6 +2,9 @@ import React,{useEffect, useState} from 'react';
 import { StyleSheet, Text, View,Button,AsyncStorage, Dimensions } from 'react-native';
 import api from '../services/api'
 
+import ModalQR from '../components/ModalQR'
+import ModalReadQR from '../components/ModalReadQR'
+
 export default function Console() {
    const [userId ,setUserId] = useState()
    const [user , setUser] = useState()
@@ -21,15 +24,18 @@ export default function Console() {
          setUserId(profile);
       })
    }
-   console.log(user)
    
+   console.log(user)
+   const cash = user ? user.cash : 0
   return(
       <View style={styles.containerDaddy}> 
          <Text style={styles.logo}>PayFest</Text>
          <View style={styles.container}>
             <View style={styles.boxMoney}>
-               <Text style={styles.Money}>R$ {user.cash}</Text>
+               <Text style={styles.Money}>R$ {cash}</Text>
             </View>  
+            <ModalQR/>
+            <ModalReadQR/>
          </View>
       </View>
   )
@@ -43,7 +49,8 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       alignItems:"center",
-      marginTop:20
+      marginTop:20,
+      paddingHorizontal:30
    },
    logo:{
       fontWeight:'bold',
@@ -52,11 +59,11 @@ const styles = StyleSheet.create({
    },
    boxMoney:{
       alignSelf:'stretch',
-      width:300,
-      marginHorizontal:30,
-      borderWidth:1,
-      borderColor:'#ddd',
-      backgroundColor:'#0080c0'
+      height:100,
+      width: Dimensions.get('window').width,
+      backgroundColor:'#0080c0',
+      justifyContent:'center',
+      paddingHorizontal:20
    },
    Money:{
       fontWeight:'bold',
