@@ -21,7 +21,6 @@ export default function Login({navigation}) {
          email
       })
       const { _id } = response.data.user
-      console.log( _id )
       await AsyncStorage.setItem('user', _id)
 
       navigation.navigate('Console')

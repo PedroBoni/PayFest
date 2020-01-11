@@ -17,7 +17,7 @@ export default function ReadQR() {
     setScanned(true);
     const json = data
     const obj = JSON.parse(json)
-    console.log(obj.Text)
+   
     alert(`Id espera`);
   };
 
@@ -47,7 +47,6 @@ export default function ReadQR() {
     </View>
   );
 }
-console.log(Dimensions.get('window'))
 const styles = StyleSheet.create({
    camRead: {
       width:300,

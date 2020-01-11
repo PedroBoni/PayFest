@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import { StyleSheet, Text, View,Button,AsyncStorage, Dimensions } from 'react-native';
+import LottieView from "lottie-react-native";
 import api from '../services/api'
 
 import ModalQR from '../components/ModalQR'
@@ -8,38 +9,43 @@ import ModalReadQR from '../components/ModalReadQR'
 export default function Console() {
    const [userId ,setUserId] = useState()
    const [user , setUser] = useState()
+   const [loadingOK , setLoadingOK] = useState(false)
+
    useEffect(() => {
       getID()
       loadProfile()    
    }, []);
-
-   async function loadProfile(){
-      const response = await api.get(`/api/${userId}`)
-     
-      setUser(response.data)
-   }
-   async function getID(){
+  const getID= () =>{
       AsyncStorage.getItem('user').then(storagedUser =>{
          const profile = storagedUser
          setUserId(profile);
       })
    }
-   
+   const loadProfile= async () =>{
+      const response = await api.get('/api',{
+         params:{userId}
+      })
+      console.log(response)
+      console.log(response.data)
+      console.log(JSON.parse(response.data))
+      setUser(JSON.parse(response.data))
+   }  
    console.log(user)
-   const cash = user ? user.cash : 0
-  return(
+
+
+   return(
       <View style={styles.containerDaddy}> 
          <Text style={styles.logo}>PayFest</Text>
          <View style={styles.container}>
             <View style={styles.boxMoney}>
-               <Text style={styles.Money}>R$ {cash}</Text>
+               <Text style={styles.Money}>R$ 0</Text>
             </View>  
             <ModalQR/>
             <ModalReadQR/>
          </View>
       </View>
-  )
-}
+   )
+} 
 const styles = StyleSheet.create({
    containerDaddy: {
       flex: 1,
