@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 // import all basic components
 import QRCode from 'react-native-qrcode-svg';
-
+const json = 'oi'
  export default function Qrcode(){
     return(
       <View style={styles.container}>
         <QRCode
         //QR code value
-        value={'Hello World'}
+        value={json}
         //size of QR Code
         size={250}
         //Color of the QR Code (Optional)

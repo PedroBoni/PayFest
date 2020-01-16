@@ -5,6 +5,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 export default function ReadQR() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [resultData,setResultData] = useState('vazio')
 
   useEffect(() => {
     (async () => {
@@ -15,10 +16,9 @@ export default function ReadQR() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    const json = data
-    const obj = JSON.parse(json)
    
-    alert(`Id espera`);
+   
+    setResultData(data);
   };
 
   if (hasPermission === null) {
@@ -42,14 +42,16 @@ export default function ReadQR() {
       />
 
       {scanned && (
-        <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />
+        <Button title={'Tap to Scan Again'} onPress={() => {setScanned(false);setResultData('vazio')}} />
       )}
     </View>
   );
 }
 const styles = StyleSheet.create({
    camRead: {
-      width:300,
+      width:250,
+      height:300,
+      marginBottom:10
       
 
    },

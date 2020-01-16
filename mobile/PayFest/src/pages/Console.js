@@ -1,45 +1,40 @@
 import React,{useEffect, useState} from 'react';
-import { StyleSheet, Text, View,Button,AsyncStorage, Dimensions } from 'react-native';
+import { StyleSheet, Text, View,Button,AsyncStorage, Dimensions,TextInput,TouchableOpacity } from 'react-native';
 import LottieView from "lottie-react-native";
 import api from '../services/api'
 
 import ModalQR from '../components/ModalQR'
 import ModalReadQR from '../components/ModalReadQR'
+import Pay from '../components/Pay'
 
 export default function Console() {
    const [userId ,setUserId] = useState()
    const [user , setUser] = useState()
-   const [loadingOK , setLoadingOK] = useState(false)
+   const [reload , setReload] = useState(false)
 
-   useEffect(() => {
-      getID()
-      loadProfile()    
-   }, []);
-  const getID= () =>{
-      AsyncStorage.getItem('user').then(storagedUser =>{
+   const reqID = async () => {
+      await AsyncStorage.getItem('user').then(storagedUser =>{
          const profile = storagedUser
-         setUserId(profile);
+         setUserId(profile)
       })
    }
-   const loadProfile= async () =>{
-      const response = await api.get('/api',{
-         params:{userId}
-      })
-      console.log(response)
-      console.log(response.data)
-      console.log(JSON.parse(response.data))
-      setUser(JSON.parse(response.data))
+   const loadProfile = async () =>{
+      const {data} = await api.get(`/user/${userId}`)
+      setUser(data)
    }  
-   console.log(user)
+   reqID()
+   loadProfile()
 
+   const cash = user ? <Text style={styles.Money}>R$ {user.cash}</Text> : <Text style={styles.Money}>R$ 0</Text> 
 
    return(
       <View style={styles.containerDaddy}> 
          <Text style={styles.logo}>PayFest</Text>
          <View style={styles.container}>
             <View style={styles.boxMoney}>
-               <Text style={styles.Money}>R$ 0</Text>
+               {cash}
             </View>  
+            <Pay/>
             <ModalQR/>
             <ModalReadQR/>
          </View>

@@ -6,8 +6,9 @@ const ConsoleController = require('./controllers/ConsoleController')
 const router = express.Router()
 
 router.post('/api/sessions',SessionController.store)
-router.put('/api/:id',PayController.update)
-router.get('/api/:id',ConsoleController.show)
+router.put('/api/pay',PayController.update)
+router.get('/api/user/:id',ConsoleController.show)
+router.get('/api/users/',ConsoleController.index)
 
 
 module.exports = router

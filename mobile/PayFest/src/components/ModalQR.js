@@ -37,7 +37,7 @@ export default function ModalQR() {
           onPress={() => {
             setModalVisible(true);
           }}
-          style={styles.button}
+          style={styles.buttonOpen}
           >
           
           <Text style={styles.buttonText}>Receber</Text>
@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent:'center',
     alignItems:'center',
+    position:'absolute',
+    marginTop:500
   },
   Modal:{
     flex:1,
@@ -72,10 +74,18 @@ const styles = StyleSheet.create({
      backgroundColor:'#0080c0',
      alignItems:'center',
      justifyContent:'center',
-     
      alignSelf:'stretch',
      paddingHorizontal:30
   },
+  buttonOpen:{
+    height:36,
+    backgroundColor:'#0080c0',
+    alignItems:'center',
+    justifyContent:'center',
+    alignSelf:'stretch',
+    paddingHorizontal:30,
+    width:120
+ },
   buttonText:{
     color:'#fff',
     fontWeight:'bold',

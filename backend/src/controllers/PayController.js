@@ -2,20 +2,22 @@ const User = require('../models/User')
 
 module.exports = {
    async update(req,res){
-     const idpay = req.params.id
-     const {cash} = await User.findById(idpay)
+     const {idPay} = req.body
+     const {cash} = await User.findById(idPay)
      const cashPay = cash
-     const a = 10
-     const idRecepetor = '5e10f7fe43016b41dc193238'
-     const userReceptor =await User.findById(idRecepetor)
+     
+     const {value} = req.body
+     
+     const {idRecepetor} = req.body
+     const userReceptor = await User.findById(idRecepetor)
      const cashReceptor = userReceptor.cash
-     const valueReceptor = cashReceptor + a 
+     const valueReceptor = cashReceptor + value
 
-   if(cashPay >= a){
-      const value = cashPay - a
+   if(cashPay >= value){
+      const valuePay = cashPay - value
       User.updateOne(
-         { _id:idpay }, 
-         { $set: { cash: value }},
+         { _id:idPay }, 
+         { $set: { cash: valuePay }},
          function (err, raw) {
           if (err) {return `erro ${err}` }
          }
@@ -28,6 +30,6 @@ module.exports = {
          if (err) {return `erro ${err}` }
         }
      )
-     res.json(await User.find())
+     res.send('Pay Confirm!')
    }
 } 
